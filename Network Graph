@@ -1,0 +1,17 @@
+#Network Graph
+edgelist <- as.matrix(flights[c("flights.ORIGIN_AIRPORT", "flights.DESTINATION_AIRPORT")])
+#Using only 10000 samples
+edgelistsample <- as.matrix(edgelist[1:1000,])
+g <- graph_from_edgelist(edgelistsample, directed = TRUE)
+g <- simplify(g)
+plot.igraph(g, 
+            edge.arrow.size=0,
+            edge.color="red",
+            edge.width=0.3,
+            vertex.size=1,
+            vertex.color=NA, 
+            vertex.frame.color=NA, 
+            vertex.label=V(g)$name,
+            vertex.label.cex=1,
+            layout=layout.sphere(g)
+)
