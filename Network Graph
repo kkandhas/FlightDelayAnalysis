@@ -1,17 +1,25 @@
 #Network Graph
-edgelist <- as.matrix(flights[c("flights.ORIGIN_AIRPORT", "flights.DESTINATION_AIRPORT")])
+
+cleanedflights <- read.csv('clean.csv')
+#Network Graph
+edgelist <- as.matrix(cleanedflights[c("flights.ORIGIN_AIRPORT", "flights.DESTINATION_AIRPORT")])
 #Using only 10000 samples
 edgelistsample <- as.matrix(edgelist[1:1000,])
-g <- graph_from_edgelist(edgelistsample, directed = TRUE)
+g <- graph_from_edgelist(edgelist, directed = TRUE)
 g <- simplify(g)
 plot.igraph(g, 
             edge.arrow.size=0,
-            edge.color="red",
+            edge.color="grey",
             edge.width=0.3,
             vertex.size=1,
             vertex.color=NA, 
-            vertex.frame.color=NA, 
             vertex.label=V(g)$name,
+            vertex.label.color='blue',
+            vertex.label.size=0.01,
             vertex.label.cex=1,
-            layout=layout.sphere(g)
+            layout=layout.circle(g)
 )
+
+
+#Mean Shortest Distance
+mean_distance(g, directed = TRUE)
